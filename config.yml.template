@@ -1,0 +1,4 @@
+---
+discord:
+  token: your_bot_token_here
+  channel_id: your_channel_id_here
