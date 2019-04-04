@@ -4,6 +4,5 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-discord.py = "*"
-pyyaml = "*"
-
+discord = { py = "*" }
+ruamel-yaml = "*"
