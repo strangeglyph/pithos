@@ -12,11 +12,13 @@ yaml.indent(mapping=2, sequence=4, offset=2)
 
 @yaml_object(yaml)
 class DiscordSettings:
-    def __init__(self, client_id: int, token: str, server_id: int, channel_id: int, command_prefix: str):
+    def __init__(self, client_id: int, token: str, server_id: int, motion_channel_id: int,
+                 archive_channel_id: int, command_prefix: str):
         self.client_id = client_id
         self.token = token
-        self.server_id = server_id
-        self.channel_id = channel_id
+        self.server_id = str(server_id)
+        self.motion_channel_id = str(motion_channel_id)
+        self.archive_channel_id = str(archive_channel_id)
         self.command_prefix = command_prefix
 
     @staticmethod
@@ -24,8 +26,9 @@ class DiscordSettings:
         return DiscordSettings(
             client_id=123,
             token="your_bot_token",
-            server_id=456,
-            channel_id=789,
+            server_id=234,
+            motion_channel_id=456,
+            archive_channel_id=567,
             command_prefix="!"
         )
 
@@ -102,7 +105,7 @@ def load_config(path: str = "config.yml") -> Config:
             config = yaml.load(config_file)
     except FileNotFoundError:
         with open(path, 'w+') as config_file:
-            yaml.dump(config, config_file)
+            yaml.dump(Config.default(), config_file)
         print("Config file (config.yml) not found. A default config has been generated. "
               "Please adjust as needed and then set 'default_generated: false'")
         exit(1)

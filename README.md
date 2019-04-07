@@ -24,6 +24,13 @@ Activate developer mode, if you haven't yet. In discord, open up your settings, 
 
 Right click the server where you want the bot to be active and select "copy id", all the way at the bottom. Put that into `discord -> server_id`.
 
+### Configuring channels
+
+Pithos uses two channels to operate: One to announce new motions and monitor votes and one to archive motions and announce results once voting has finished. You can use one channel for both, but both need to be configured.
+
+Right click the channels you want to use and select "copy id" again. Put the channel id for new motions and voting into `discord -> motion_channel_id` and the channel id for archives into `discord -> archive_channel_id`
+
+
 ### Finalize the config
 
 Set `default_generated` to `false`.

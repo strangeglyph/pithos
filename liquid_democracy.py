@@ -6,17 +6,18 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 
 __session: sqlalchemy.orm.Session = None
+Base = declarative_base()
 
 
 def get_session(engine_override=None) -> sqlalchemy.orm.Session:
     global __session
     if not __session:
         engine = engine_override if engine_override else sqlalchemy.create_engine("sqlite://pithos.db")
+        engine.connect()
         __session = sessionmaker(bind=engine)()
+        Base.metadata.create_all(engine)
     return __session
 
-
-Base = declarative_base()
 
 
 class DelegationType(enum.Enum):
@@ -35,7 +36,7 @@ class User(Base):
     delegate = relationship("User", remote_side=[id], backref="constituents")
     votes = relationship("Vote", back_populates="user", cascade="all, delete, delete-orphan")
 
-    ck_if_delegate_is_set_delegation_type_is_set = CheckConstraint('delegate_id == null OR delegation_type != null',
+    ck_if_delegate_is_set_delegation_type_is_set = CheckConstraint('delegate_id IS NULL OR delegation_type IS NOT NULL',
                                                                    name='ck_if_delegate_is_set_delegation_type_is_set')
 
 
