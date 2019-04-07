@@ -12,15 +12,21 @@ yaml.indent(mapping=2, sequence=4, offset=2)
 
 @yaml_object(yaml)
 class DiscordSettings:
-    def __init__(self, token: str, channel_id: int):
+    def __init__(self, client_id: int, token: str, server_id: int, channel_id: int, command_prefix: str):
+        self.client_id = client_id
         self.token = token
+        self.server_id = server_id
         self.channel_id = channel_id
+        self.command_prefix = command_prefix
 
     @staticmethod
     def default() -> "DiscordSettings":
         return DiscordSettings(
+            client_id=123,
             token="your_bot_token",
-            channel_id=12345
+            server_id=456,
+            channel_id=789,
+            command_prefix="!"
         )
 
 

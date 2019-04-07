@@ -6,3 +6,5 @@ name = "pypi"
 [packages]
 discord = { py = "*" }
 ruamel-yaml = "*"
+sqlalchemy = "*"
+pytest = "*"
