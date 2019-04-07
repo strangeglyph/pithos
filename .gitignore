@@ -256,3 +256,4 @@ $RECYCLE.BIN/
 *.lnk
 
 config.yml
+pithos.db
