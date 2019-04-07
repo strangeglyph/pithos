@@ -12,12 +12,11 @@ Base = declarative_base()
 def get_session(engine_override=None) -> sqlalchemy.orm.Session:
     global __session
     if not __session:
-        engine = engine_override if engine_override else sqlalchemy.create_engine("sqlite://pithos.db")
+        engine = engine_override if engine_override else sqlalchemy.create_engine("sqlite:///pithos.db")
         engine.connect()
         __session = sessionmaker(bind=engine)()
         Base.metadata.create_all(engine)
     return __session
-
 
 
 class DelegationType(enum.Enum):
@@ -128,7 +127,3 @@ def test_foo():
     assert len(user_b.votes) == 1
     assert len(motion_1.votes) == 2
     assert len(motion_2.votes) == 1
-
-
-test_constituent_backref()
-test_foo()
